@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Supreme Redesign — Low Fidelity Wireframe</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f2f2f2;--paper:#fff;--ink:#222;--mid:#8a8a8a;--soft:#dcdcdc;--fill:#e6e6e6;--note:#f5c518;--noteInk:#3a2f00;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1b1b;--paper:#262626;--ink:#eee;--mid:#8f8f8f;--soft:#444;--fill:#333;--note:#c9a20f;--noteInk:#fff}}
+:root[data-theme="dark"]{--bg:#1b1b1b;--paper:#262626;--ink:#eee;--mid:#8f8f8f;--soft:#444;--fill:#333;--note:#c9a20f;--noteInk:#fff}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.45}
+button,input{font:inherit;color:inherit}button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px dashed var(--ink);outline-offset:2px}
+.frame{max-width:1200px;margin:0 auto;background:var(--paper);min-height:100vh;border-left:1px solid var(--soft);border-right:1px solid var(--soft);position:relative}
+.pad{padding:0 40px}
+@media(max-width:700px){.pad{padding:0 16px}}
+.box{border:1.5px solid var(--ink);background:transparent}
+.dash{border:1.5px dashed var(--mid)}
+.ph{background:var(--fill);border:1.5px solid var(--mid);position:relative;display:grid;place-items:center;color:var(--mid);overflow:hidden}
+.ph::before,.ph::after{content:"";position:absolute;left:0;top:50%;width:141%;border-top:1px solid var(--mid);transform-origin:0 0}
+.ph::before{transform:rotate(atan2(1,1));top:0;left:0;transform:rotate(35deg)}
+.ph::after{top:100%;transform:rotate(-35deg)}
+.ph span{position:relative;z-index:1;background:var(--fill);padding:2px 8px;font-size:12px}
+.btn{border:1.5px solid var(--ink);padding:12px 20px;font-weight:600;text-align:center;background:var(--paper);transition:background .1s}
+.btn:hover{background:var(--soft)}
+.btn.solid{background:var(--ink);color:var(--paper)}.btn.solid:hover{opacity:.85}
+.btn.dashed{border-style:dashed}
+.btn.block{display:block;width:100%}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+/* bar */
+.tag-bar{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:var(--paper);padding:8px 16px;font-size:12px;position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:8px}
+.tag-bar b{letter-spacing:.06em}
+.tag-bar label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.crumbs-flow{display:flex;gap:6px;flex-wrap:wrap}
+.crumbs-flow button{border:1px solid var(--paper);padding:2px 10px;font-size:12px;color:var(--paper)}
+.crumbs-flow button.on{background:var(--paper);color:var(--ink)}
+.ann{background:var(--note);color:var(--noteInk);text-align:center;padding:8px;font-size:12px;border-bottom:1.5px solid var(--ink)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1.5px solid var(--ink);gap:16px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:22px;letter-spacing:.02em;border:1.5px solid var(--ink);padding:4px 14px}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.nav ul button,.nav .act button{padding:4px 2px;border-bottom:2px solid transparent}
+.nav ul button:hover,.nav .act button:hover{border-color:var(--ink)}
+.act{display:flex;gap:18px}
+@media(max-width:700px){.nav{padding:14px 16px}.nav ul{gap:14px;order:3;width:100%}}
+.view{display:none;position:relative}.view.active{display:block}
+h1,h2,h3{margin:0}
+.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);font-weight:700}
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;padding:48px 40px;border-bottom:1.5px solid var(--ink);align-items:center}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:32px 16px}}
+.cd{display:flex;gap:10px;margin:14px 0 22px}
+.cd div{border:1.5px solid var(--ink);padding:10px 14px;text-align:center;min-width:72px}
+.cd b{display:block;font-size:30px;font-variant-numeric:tabular-nums}.cd small{font-size:10px;color:var(--mid)}
+.bar-h1{font-size:clamp(34px,6vw,60px);font-weight:800;line-height:1;margin:0 0 16px}
+.lines i{display:block;height:8px;background:var(--soft);margin-bottom:8px}
+.queue{margin-top:22px;border:1.5px dashed var(--ink);padding:10px 14px;font-size:13px;display:flex;gap:10px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--ink);flex:none}
+.calendar{aspect-ratio:1/1.1;display:grid;grid-template-rows:auto 1fr 1fr 1fr}
+.calendar .r{border-bottom:1.5px solid var(--ink);padding:12px 16px;display:flex;gap:18px;align-items:center;cursor:pointer}
+.calendar .r:hover,.calendar .r.sel{background:var(--soft)}
+.calendar .r:last-child{border-bottom:0}
+.calendar .d{font-size:44px;font-weight:300;min-width:70px}
+/* filters */
+.fbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:22px 40px;border-bottom:1.5px solid var(--ink)}
+@media(max-width:700px){.fbar{padding:16px}}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--ink);border-radius:999px;padding:7px 16px}
+.chip.on{background:var(--ink);color:var(--paper)}
+.dd{position:relative}
+.menu{position:absolute;right:0;top:40px;background:var(--paper);border:1.5px solid var(--ink);min-width:170px;z-index:20;display:none;padding:6px}
+.dd.open .menu{display:block}
+.menu button{display:block;width:100%;text-align:left;padding:8px 10px}.menu button:hover{background:var(--soft)}.menu button.on{font-weight:800}
+.menu button.on::before{content:"● "}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:24px 40px 40px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr);padding:20px 16px}}
+.card{text-align:left;display:block;width:100%;position:relative}
+.card .ph{aspect-ratio:300/340}
+.card h4{margin:10px 0 2px;font-size:14px}.card .m{color:var(--mid);font-size:13px}
+.badge{position:absolute;left:8px;top:8px;background:var(--ink);color:var(--paper);font-size:10px;padding:3px 8px;z-index:2}
+.wl{position:absolute;right:8px;top:8px;z-index:3;background:var(--paper);border:1.5px solid var(--ink);width:30px;height:30px;border-radius:50%;font-size:15px;line-height:1}
+.wl.on{background:var(--ink);color:var(--paper)}
+.card:hover .ph{outline:2px solid var(--ink)}
+.count{padding:16px 40px 0;color:var(--mid);font-size:12px}
+@media(max-width:700px){.count{padding:16px 16px 0}}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:32px 40px;border-top:1.5px solid var(--ink)}
+.trust button{text-align:left;border:1.5px dashed var(--mid);padding:16px}.trust button:hover{border-color:var(--ink);border-style:solid}
+@media(max-width:700px){.trust{grid-template-columns:1fr;padding:24px 16px}}
+.look{background:var(--fill);padding:40px;border-top:1.5px solid var(--ink)}
+.looks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px}
+.looks .ph{aspect-ratio:1/1.05}
+@media(max-width:700px){.looks{grid-template-columns:1fr}.look{padding:24px 16px}}
+.hot{position:absolute;z-index:3;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-weight:800}
+footer{display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:30px;padding:36px 40px;border-top:1.5px solid var(--ink);background:var(--fill)}
+footer ul{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:8px}footer li button:hover{text-decoration:underline}
+.nl{display:flex;gap:8px;margin-top:8px}.nl input{flex:1;min-width:0;padding:10px;border:1.5px solid var(--ink);background:var(--paper)}
+.msg{font-size:12px;margin-top:6px;min-height:16px}
+@media(max-width:800px){footer{grid-template-columns:1fr;padding:24px 16px}}
+/* PDP */
+.crumb{padding:16px 40px;color:var(--mid);font-size:13px}.crumb button:hover{text-decoration:underline}
+.pdp{display:grid;grid-template-columns:1fr 470px;gap:44px;padding:0 40px 48px}
+@media(max-width:1000px){.pdp{grid-template-columns:1fr;padding:0 16px 32px}}
+.gal{display:grid;grid-template-columns:80px 1fr;gap:12px}
+.thumbs{display:grid;gap:10px;align-content:start}.thumbs .ph{aspect-ratio:1;cursor:pointer}.thumbs .ph.on{outline:3px solid var(--ink)}
+.main{aspect-ratio:600/640}
+.sizes{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.size{border:1.5px solid var(--ink);width:64px;height:44px;font-weight:700}
+.size.on{background:var(--ink);color:var(--paper)}
+.size[disabled]{border-color:var(--mid);color:var(--mid);text-decoration:line-through;cursor:not-allowed}
+.size.shake{animation:sh .35s}@keyframes sh{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.err{color:var(--ink);font-weight:700;font-size:13px;min-height:18px}
+.err::before{content:attr(data-e) " ";}
+.field{width:100%;padding:11px 12px;border:1.5px solid var(--ink);background:var(--paper);margin-bottom:10px}
+.field.bad{border-style:dashed;background:repeating-linear-gradient(135deg,transparent 0 6px,var(--soft) 6px 7px)}
+.fmsg{font-size:12px;margin:-6px 0 10px;min-height:0;font-weight:700}
+.acc{border-bottom:1.5px solid var(--soft)}.acc:first-of-type{border-top:1.5px solid var(--soft);margin-top:22px}
+.acc>button{width:100%;display:flex;justify-content:space-between;padding:14px 0;font-weight:700}
+.acc .b{display:none;padding-bottom:14px;color:var(--mid)}.acc.open .b{display:block}
+.acc.open>button i{transform:rotate(45deg)}.acc>button i{font-style:normal;font-size:18px}
+.rel{padding:32px 40px 48px;border-top:1.5px solid var(--ink)}.rel .grid{padding:16px 0 0}
+@media(max-width:700px){.rel{padding:24px 16px}.crumb{padding:12px 16px}}
+/* checkout */
+.ck{display:grid;grid-template-columns:1fr 440px;gap:40px;padding:8px 40px 40px}
+@media(max-width:1000px){.ck{grid-template-columns:1fr;padding:8px 16px 32px}}
+.ci{display:grid;grid-template-columns:86px 1fr auto;gap:16px;align-items:center;padding:14px 0;border-bottom:1.5px solid var(--soft)}
+.ci .ph{height:106px}
+.qty{display:inline-flex;border:1.5px solid var(--ink);vertical-align:middle;margin-left:8px}
+.qty button{width:26px;height:26px}.qty button:hover{background:var(--soft)}.qty span{min-width:24px;text-align:center;line-height:26px}
+.lnk button{text-decoration:underline;font-size:12px;color:var(--mid);margin-right:8px}
+.sum{border:1.5px solid var(--ink);padding:24px;height:max-content}
+.sum .r{display:flex;justify-content:space-between;padding:6px 0}
+.sum .t{border-top:1.5px solid var(--ink);margin-top:8px;padding-top:12px;font-weight:800;font-size:18px;display:flex;justify-content:space-between}
+.po{display:flex;align-items:center;gap:10px;border:1.5px solid var(--mid);padding:12px;width:100%;text-align:left;margin-bottom:8px}
+.po i{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--ink);display:inline-block;flex:none}
+.po.on{border-color:var(--ink);border-width:2px}.po.on i{background:radial-gradient(var(--ink) 40%,transparent 45%)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:24px 40px 40px}
+.step{border:1.5px solid var(--mid);padding:14px;margin-right:-1.5px;color:var(--mid)}
+.step.done{border-color:var(--ink);color:var(--ink);background:var(--fill)}
+.step.done b::before{content:"☑ "}.step b::before{content:"☐ "}
+.step.now{border:2px dashed var(--ink);color:var(--ink)}
+@media(max-width:700px){.steps{grid-template-columns:1fr 1fr;padding:16px}}
+.conf{text-align:center;padding:56px 20px 8px}
+/* overlays */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:80;display:none}.scrim.show{display:block}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:400px;max-width:100%;background:var(--paper);border-left:2px solid var(--ink);z-index:90;transform:translateX(102%);transition:transform .22s;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+.drawer.show{transform:none}
+.drawer .h{display:flex;justify-content:space-between;padding:18px;border-bottom:1.5px solid var(--ink);font-weight:800}
+.drawer .bd{flex:1;overflow:auto;padding:0 18px}.drawer .ft{padding:18px;border-top:1.5px solid var(--ink)}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(500px,calc(100% - 28px));max-height:88%;overflow:auto;background:var(--paper);border:2px solid var(--ink);z-index:95;padding:26px;display:none}
+.modal.show{display:block}.modal .x{position:absolute;right:12px;top:8px;font-size:22px}
+.modal h3{margin-bottom:8px}.modal .sub{color:var(--mid);margin:0 0 14px}
+table{width:100%;border-collapse:collapse;margin:10px 0}td,th{border:1px solid var(--mid);padding:7px;text-align:left}tr.hl td{background:var(--soft);font-weight:700}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:11px 18px;z-index:120;font-weight:600;max-width:calc(100% - 28px)}
+/* notes */
+.pin{position:absolute;z-index:40;width:26px;height:26px;border-radius:50%;background:var(--note);color:var(--noteInk);border:1.5px solid var(--ink);font-weight:800;font-size:13px;display:none;place-items:center;cursor:pointer;font-family:'Caveat',cursive;font-size:17px}
+body.notes .pin{display:grid}
+.pin:hover .tip,.pin:focus .tip{display:block}
+.tip{display:none;position:absolute;left:32px;top:-4px;width:230px;background:var(--note);color:var(--noteInk);border:1.5px solid var(--ink);padding:10px 12px;font-size:12.5px;font-family:system-ui,sans-serif;font-weight:500;text-align:left;line-height:1.35;z-index:60}
+.tip b{display:block;margin-bottom:3px}
+.pin.left .tip{left:auto;right:32px}
+.legend{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:70;background:var(--note);color:var(--noteInk);border:1.5px solid var(--ink);padding:8px 12px;font-size:12px;display:none;max-width:250px}
+body.notes .legend{display:block}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="tag-bar">
+  <b>LOW-FI WIREFRAME</b>
+  <div class="crumbs-flow" id="flow">
+    <button data-go="home" class="on">1 Home</button><button data-go="product">2 Product</button><button data-go="checkout">3 Checkout</button><button data-go="confirm">4 Order status</button>
+  </div>
+  <label><input type="checkbox" id="notesToggle"> Show UX notes</label>
+</div>
+<div class="frame">
+<div class="ann">NEW DROP EVERY THURSDAY 11AM · SAVE YOUR SIZE AND DETAILS FOR ONE-PAGE CHECKOUT</div>
+<div class="nav">
+  <button class="logo" data-go="home">SUPREME</button>
+  <ul><li><button data-scroll="shop">Shop</button></li><li><button data-scroll="drop">Drops</button></li><li><button data-scroll="lookbook">Lookbook</button></li><li><button id="navSize">Size Guide</button></li><li><button id="navAbout">About</button></li></ul>
+  <div class="act"><button id="bSearch">Search</button><button id="bWish">Wishlist<span id="wc"></span></button><button id="bCart">Cart (<span id="cc">2</span>)</button></div>
+</div>
+
+<!-- HOME -->
+<section class="view active" id="v-home">
+  <div class="hero" id="drop">
+    <div style="position:relative">
+      <span class="pin" style="left:-22px;top:0" tabindex="0">1<span class="tip"><b>Feedback &amp; system status</b>Live countdown and queue position with estimated wait.</span></span>
+      <div class="lbl">Thursday drop · goes live in</div>
+      <div class="cd"><div><b id="d">02</b><small>DAYS</small></div><div><b id="h">14</b><small>HRS</small></div><div><b id="m">36</b><small>MIN</small></div><div><b id="s">09</b><small>SEC</small></div></div>
+      <div class="bar-h1">NEW THIS<br>THURSDAY.</div>
+      <div class="lines" style="max-width:420px"><i></i><i style="width:80%"></i></div>
+      <p style="color:var(--mid);max-width:440px">Set your alert, save your size and details, and join the queue with live status.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn solid" id="notify">Notify me</button><button class="btn" id="preview">Preview the drop</button></div>
+      <div class="queue"><span class="dot"></span><span id="qt">You're in the queue · Position 1,240 · Est. wait 2 min</span></div>
+    </div>
+    <div class="calendar box">
+      <div style="padding:12px 16px;border-bottom:1.5px solid var(--ink);display:flex;justify-content:space-between"><b>RELEASE CALENDAR · FW26</b><span class="lbl">tap a date</span></div>
+      <div class="r" data-d="Preview · Aug 17"><span class="d">17</span><span>Aug · Mon<br><small style="color:var(--mid)">Lookbook / preview</small></span></div>
+      <div class="r" data-d="Week 1 release · Aug 20"><span class="d">20</span><span>Aug · Thu<br><small style="color:var(--mid)">Week 1 release</small></span></div>
+      <div class="r" data-d="Week 2 release · Aug 27"><span class="d">27</span><span>Aug · Thu<br><small style="color:var(--mid)">Week 2 · collaboration</small></span></div>
+    </div>
+  </div>
+
+  <div class="fbar" id="shop" style="position:relative">
+    <span class="pin" style="left:8px;top:-12px" tabindex="0">2<span class="tip"><b>Search &amp; discoverability</b>Category chips plus size and price filters on the shop grid.</span></span>
+    <div class="chips" id="chips"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div class="dd" id="ddSize"><button class="chip" data-dd>Size ▾</button><div class="menu" id="mSize"></div></div>
+      <div class="dd" id="ddPrice"><button class="chip" data-dd>Price ▾</button><div class="menu" id="mPrice"></div></div>
+      <div class="dd" id="ddSort"><button class="chip" data-dd>Sort: Newest ▾</button><div class="menu" id="mSort"></div></div>
+    </div>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+
+  <div class="trust">
+    <button data-t="restock"><b>Restock alerts</b><br><span style="color:var(--mid)">Never miss a sold-out piece</span></button>
+    <button data-t="fit"><b>Clear fit guide</b><br><span style="color:var(--mid)">Model height and size on every item</span></button>
+    <button data-t="ck"><b>One-page checkout</b><br><span style="color:var(--mid)">Saved details, guest checkout</span></button>
+  </div>
+  <div class="look" id="lookbook">
+    <h2>LOOKBOOK — SHOP THE LOOK</h2>
+    <div class="looks" id="looks"></div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section class="view" id="v-product">
+  <div class="crumb"><button data-go="home">Home</button> / <button id="cCat" data-go="home">Sweats</button> / <span id="cName"></span></div>
+  <div class="pdp">
+    <div class="gal" style="position:relative">
+      <div class="thumbs" id="thumbs"><div class="ph on"><span>1</span></div><div class="ph"><span>2</span></div><div class="ph"><span>3</span></div></div>
+      <div class="ph main" id="main"><span id="mainL">Main product photo</span></div>
+    </div>
+    <div style="position:relative">
+      <span class="pin left" style="right:0;top:-6px" tabindex="0">3<span class="tip"><b>Error prevention</b>Size guide, model fit note and a waitlist for sold-out items instead of a dead end.</span></span>
+      <h1 id="pn" style="font-size:30px;line-height:1.15;margin-bottom:12px"></h1>
+      <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:12px"><b style="font-size:26px" id="pp"></b><span id="ps"></span><button class="lbl" id="rev" style="text-decoration:underline">312 verified reviews</button></div>
+      <p style="color:var(--mid)" id="pd"></p>
+      <div style="display:flex;justify-content:space-between;margin-top:20px"><span class="lbl">Select size</span><button id="sg" style="font-weight:700">Size guide →</button></div>
+      <div class="sizes" id="sizes"></div>
+      <div class="err" id="serr"></div>
+      <p class="lbl" style="text-transform:none;letter-spacing:0;font-weight:500" id="mn">Model is 6'0" and wears M for an oversized fit.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><input class="field" id="zip" style="width:230px;margin:0" placeholder="Enter ZIP / pincode" maxlength="6" inputmode="numeric"><button class="btn" id="zipBtn">Check delivery</button></div>
+      <div class="fmsg" id="eta" style="margin:10px 0 18px;font-weight:600">Estimated delivery 3 Oct · Tracking by email and SMS</div>
+      <div style="display:grid;gap:10px;max-width:340px">
+        <button class="btn solid block" id="add">ADD TO CART</button><button class="btn block dashed" id="buy">BUY WITH SAVED DETAILS</button><button class="btn block" id="wait" style="display:none">JOIN WAITLIST</button>
+      </div>
+      <div class="acc"><button>Fabric &amp; care<i>+</i></button><div class="b">Heavyweight cotton fleece. Machine wash cold, tumble dry low.</div></div>
+      <div class="acc"><button>Returns &amp; exchanges<i>+</i></button><div class="b">Free exchanges within 14 days on unworn pieces with tags.</div></div>
+      <div class="acc"><button>Shipping &amp; delivery<i>+</i></button><div class="b">Packed within 24 hrs. Tracking link by email and SMS.</div></div>
+    </div>
+  </div>
+  <div class="rel"><h2 style="font-size:20px">YOU MAY ALSO LIKE</h2><div class="grid" id="relg"></div></div>
+</section>
+
+<!-- CHECKOUT -->
+<section class="view" id="v-checkout">
+  <div style="padding:28px 40px 4px"><h1 style="font-size:44px">CHECKOUT</h1><span style="color:var(--mid)">Guest checkout — no account needed</span></div>
+  <div class="ck">
+    <div style="position:relative">
+      <span class="pin" style="right:0;top:-10px" tabindex="0">4<span class="tip"><b>Efficiency of interaction</b>One-page guest checkout with saved details, so no account wall.</span></span>
+      <div class="lbl" style="margin:16px 0 4px">Your bag (<span id="kc">2</span>)</div>
+      <div id="ckItems"></div>
+      <div style="display:flex;gap:8px;margin:18px 0 6px;flex-wrap:wrap"><input class="field" id="promo" style="max-width:280px;margin:0" placeholder="Gift card or code"><button class="btn" id="promoBtn">Apply</button></div>
+      <div class="fmsg" id="pm" style="margin:0 0 20px">Try code SUPREME10.</div>
+      <div class="lbl" style="margin-bottom:10px">Delivery details</div>
+      <input class="field" id="f1" placeholder="Full name"><input class="field" id="f2" placeholder="Phone number" inputmode="tel"><input class="field" id="f3" placeholder="Address">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px"><input class="field" id="f4" placeholder="ZIP" inputmode="numeric" maxlength="6"><input class="field" id="f5" placeholder="City"><input class="field" id="f6" placeholder="State"></div>
+      <div class="fmsg" id="fe"></div>
+      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" checked> Save my size and details for the next drop</label>
+    </div>
+    <aside class="sum">
+      <div class="lbl" style="margin-bottom:10px">Order summary</div>
+      <div class="r"><span>Subtotal</span><span id="ts">$222</span></div>
+      <div class="r" id="tdr" style="display:none"><span>Code SUPREME10</span><span id="td"></span></div>
+      <div class="r"><span>Shipping</span><span id="tsh">Free</span></div>
+      <div class="r"><span>Tax</span><span id="tt">$18</span></div>
+      <div class="t"><span>Total</span><span id="tot">$240</span></div>
+      <div class="lbl" style="margin:22px 0 8px">Payment</div>
+      <button class="po on" data-p="upi"><i></i>UPI / Google Pay</button>
+      <button class="po" data-p="apple"><i></i>Apple Pay</button>
+      <button class="po" data-p="card"><i></i>Credit / Debit card</button>
+      <div id="cardBox" style="display:none"><input class="field" placeholder="Card number"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><input class="field" placeholder="MM / YY"><input class="field" placeholder="CVV"></div></div>
+      <button class="btn solid block" id="place" style="margin-top:8px">PLACE ORDER · $240</button>
+      <p style="font-size:12px;color:var(--mid);margin:12px 0 0">Est. delivery 3 Oct · Free exchanges · Status updates by email and SMS</p>
+    </aside>
+  </div>
+  <div style="padding:0 40px"><div class="lbl">After you order — live order status</div></div>
+  <div class="steps"><div class="step"><b>Confirmed</b><br>Today, 4:12 PM</div><div class="step"><b>Packed</b><br>Within 24 hrs</div><div class="step"><b>Shipped</b><br>Tracking link by SMS</div><div class="step"><b>Delivered</b><br>By 3 Oct</div></div>
+</section>
+
+<!-- CONFIRM -->
+<section class="view" id="v-confirm">
+  <div class="conf"><div style="font-size:54px">☑</div><h1 style="font-size:44px">ORDER CONFIRMED.</h1><p style="color:var(--mid)" id="cf">Order #SUP-48213 is in.</p><button class="btn solid" data-go="home">Back to the drop</button> <button class="btn" id="replay">Replay status</button></div>
+  <div style="padding:24px 40px 0"><div class="lbl">Live order status</div></div>
+  <div class="steps" id="live"><div class="step now"><b>Confirmed</b><br>Just now</div><div class="step"><b>Packed</b><br>Within 24 hrs</div><div class="step"><b>Shipped</b><br>Tracking link by SMS</div><div class="step"><b>Delivered</b><br>By 3 Oct</div></div>
+</section>
+
+<footer>
+  <div><span class="logo">SUPREME</span><p style="color:var(--mid)">Redesign concept for an academic UX project.</p></div>
+  <div><span class="lbl">Help</span><ul><li><button data-h="chat">Live chat support</button></li><li><button data-h="track">Track order</button></li><li><button data-h="ret">Exchanges &amp; returns</button></li><li><button id="fSize">Size guide</button></li></ul></div>
+  <div><span class="lbl">Get drop alerts</span><form class="nl" id="nl" novalidate><input id="nle" type="email" placeholder="Enter your email" aria-label="Email"><button class="btn solid">Notify</button></form><div class="msg" id="nlm"></div></div>
+</footer>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="dCart"><div class="h"><span>YOUR BAG (<span id="dc">2</span>)</span><button data-x>✕</button></div><div class="bd" id="dItems"></div><div class="ft"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><b>Subtotal</b><b id="dsub"></b></div><button class="btn solid block" id="dgo">CHECKOUT</button></div></aside>
+<aside class="drawer" id="dWish"><div class="h"><span>WISHLIST</span><button data-x>✕</button></div><div class="bd" id="wItems"></div></aside>
+<div class="modal" id="modal"></div>
+<div class="legend">Yellow notes explain which UX problem each screen area fixes. Hover or tap a pin.</div>
+
+<script>
+const P=[
+{id:'box',n:'Box Logo Hooded Sweatshirt',p:168,c:'Sweats',s:['S','M','L','XL'],tag:'NEW',left:14},
+{id:'tee',n:'Classic Script Tee',p:54,c:'T-Shirts',s:['S','M','L','XL'],tag:'NEW',left:60},
+{id:'pant',n:'Work Pant',p:148,c:'Pants',s:['S','M','L','XL'],left:38},
+{id:'coach',n:'Coaches Jacket',p:198,c:'Jackets',s:['S','M','L','XL'],tag:'SOLD OUT',sold:true,left:0},
+{id:'satin',n:'Supreme Satin Appliqué Hoodie Dark Red',p:268,c:'Sweats',s:['XS','S','M','L','XL','XXL'],tag:'LOW STOCK',left:14},
+{id:'cap',n:'Camp Cap',p:48,c:'Accessories',s:['S','M','L','XL'],left:80}];
+const by=id=>P.find(x=>x.id===id),$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const $m=n=>'$'+Math.round(n);
+const S={cat:'All',size:null,price:'all',sort:'new',cart:[{id:'box',s:'M',q:1},{id:'tee',s:'L',q:1}],wish:new Set(),cur:null,cs:null,promo:false,pay:'upi',inQ:true,pos:1240};
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2400)}
+function ph(l,ex=''){return `<div class="ph ${ex}"><span>${l}</span></div>`}
+/* nav */
+function go(v){$$('.view').forEach(e=>e.classList.toggle('active',e.id==='v-'+v));$$('#flow button').forEach(b=>b.classList.toggle('on',b.dataset.go===v));scrollTo(0,0);if(v==='checkout')rCk();closeAll()}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();if(g.dataset.go==='product'&&!S.cur)openP('satin');else go(g.dataset.go);return}
+ const sc=e.target.closest('[data-scroll]');if(sc){const id=sc.dataset.scroll;const f=()=>document.getElementById(id).scrollIntoView({behavior:'smooth'});if(!$('#v-home').classList.contains('active')){go('home');setTimeout(f,50)}else f()}});
+$('#notesToggle').onchange=e=>document.body.classList.toggle('notes',e.target.checked);
+/* countdown */
+const T=Date.now()+((2*24+14)*3600+36*60+9)*1000;
+setInterval(()=>{const s=Math.max(0,Math.floor((T-Date.now())/1000));const f=n=>String(n).padStart(2,'0');$('#d').textContent=f(Math.floor(s/86400));$('#h').textContent=f(Math.floor(s%86400/3600));$('#m').textContent=f(Math.floor(s%3600/60));$('#s').textContent=f(s%60)},1000);
+setInterval(()=>{if(S.inQ&&S.pos>1){S.pos=Math.max(1,S.pos-Math.floor(Math.random()*8+2));$('#qt').textContent=`You're in the queue · Position ${S.pos.toLocaleString()} · Est. wait ${Math.max(1,Math.round(S.pos/620))} min`}},2500);
+$('#notify').onclick=()=>modal(`<h3>Get the Thursday alert</h3><p class="sub">We'll message you 15 min before the drop.</p><input class="field" id="ae" placeholder="Email or phone"><div class="fmsg" id="aem"></div><button class="btn solid block" id="ag">Set my alert</button>`,()=>{$('#ag').onclick=()=>{const v=$('#ae').value;const ok=/^\S+@\S+\.\S+$/.test(v)||/^\d{10}$/.test(v.replace(/\D/g,''));$('#ae').classList.toggle('bad',!ok);$('#aem').textContent=ok?'':'Enter a valid email or 10-digit phone.';if(!ok)return;closeAll();$('#notify').textContent='Alert set ✓';toast('Alert set.')}});
+$('#preview').onclick=()=>document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+$$('.calendar .r').forEach(r=>r.onclick=()=>{$$('.calendar .r').forEach(x=>x.classList.remove('sel'));r.classList.add('sel');toast('Reminder added: '+r.dataset.d)});
+/* grid */
+function card(p){const d=document.createElement('div');d.className='card';d.tabIndex=0;
+ d.innerHTML=`${p.tag?`<span class="badge">${p.tag}</span>`:''}<button class="wl ${S.wish.has(p.id)?'on':''}" data-w="${p.id}" aria-label="Wishlist">♥</button>${ph('Product photo')}<h4>${p.n}</h4><div class="m">${$m(p.p)}</div><div class="m" style="font-size:11px;letter-spacing:.12em">${p.s.join(' ')}</div>`;
+ d.onclick=e=>{if(e.target.closest('[data-w]')){wish(p.id);return}openP(p.id)};d.onkeydown=e=>{if(e.key==='Enter')openP(p.id)};return d}
+function list(){let L=P.filter(p=>(S.cat==='All'||p.c===S.cat)&&(!S.size||p.s.includes(S.size)));if(S.price!=='all'){const[a,b]=S.price.split('-').map(Number);L=L.filter(p=>p.p>=a&&p.p<=b)}
+ if(S.sort==='lo')L.sort((a,b)=>a.p-b.p);if(S.sort==='hi')L.sort((a,b)=>b.p-a.p);return L}
+function rGrid(){const g=$('#grid');g.innerHTML='';const L=list();$('#count').textContent=`${L.length} piece${L.length==1?'':'s'}`;
+ if(!L.length){g.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--mid)">No pieces match. <button style="text-decoration:underline" id="rf">Reset filters</button></p>';$('#rf').onclick=()=>{S.cat='All';S.size=null;S.price='all';rF();rGrid()};return}
+ L.forEach(p=>g.appendChild(card(p)))}
+const cats=['All','Sweats','T-Shirts','Pants','Jackets','Accessories'];
+function rF(){$('#chips').innerHTML=cats.map(c=>`<button class="chip ${S.cat===c?'on':''}" data-c="${c}">${c}</button>`).join('');
+ $('#mSize').innerHTML=['XS','S','M','L','XL','XXL'].map(s=>`<button data-s="${s}" class="${S.size===s?'on':''}">${s}</button>`).join('')+'<button data-s="">Clear size</button>';
+ const pr=[['all','Any price'],['0-60','Under $60'],['60-160','$60 – $160'],['160-999','$160+']];$('#mPrice').innerHTML=pr.map(x=>`<button data-p="${x[0]}" class="${S.price===x[0]?'on':''}">${x[1]}</button>`).join('');
+ const so=[['new','Newest'],['lo','Price: low to high'],['hi','Price: high to low']];$('#mSort').innerHTML=so.map(x=>`<button data-o="${x[0]}" class="${S.sort===x[0]?'on':''}">${x[1]}</button>`).join('');
+ $('#ddSize>button').textContent=S.size?`Size: ${S.size} ▾`:'Size ▾';$('#ddPrice>button').textContent=(S.price==='all'?'Price':pr.find(x=>x[0]===S.price)[1])+' ▾';$('#ddSort>button').textContent='Sort: '+so.find(x=>x[0]===S.sort)[1].replace('Price: ','')+' ▾'}
+$('#chips').onclick=e=>{const b=e.target.closest('[data-c]');if(!b)return;S.cat=b.dataset.c;rF();rGrid()};
+$('#mSize').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;S.size=b.dataset.s||null;rF();rGrid();closeDD()};
+$('#mPrice').onclick=e=>{const b=e.target.closest('[data-p]');if(!b)return;S.price=b.dataset.p;rF();rGrid();closeDD()};
+$('#mSort').onclick=e=>{const b=e.target.closest('[data-o]');if(!b)return;S.sort=b.dataset.o;rF();rGrid();closeDD()};
+function closeDD(){$$('.dd').forEach(d=>d.classList.remove('open'))}
+$$('[data-dd]').forEach(b=>b.onclick=e=>{e.stopPropagation();const d=b.parentElement,w=d.classList.contains('open');closeDD();if(!w)d.classList.add('open')});
+document.addEventListener('click',e=>{if(!e.target.closest('.dd'))closeDD()});
+/* wishlist */
+function wish(id){S.wish.has(id)?S.wish.delete(id):S.wish.add(id);toast(S.wish.has(id)?'Saved to wishlist':'Removed from wishlist');$('#wc').textContent=S.wish.size?` (${S.wish.size})`:'';rGrid();if(S.cur)relG();rW()}
+function rW(){const w=$('#wItems');if(!S.wish.size){w.innerHTML='<p style="color:var(--mid)">Nothing saved yet. Tap ♥ on any piece.</p>';return}w.innerHTML='';
+ [...S.wish].forEach(id=>{const p=by(id);const d=document.createElement('div');d.className='ci';d.style.gridTemplateColumns='64px 1fr';d.innerHTML=`<div class="ph" style="height:80px"><span></span></div><div><b>${p.n}</b><br>${$m(p.p)}<div class="lnk"><button data-v>View</button><button data-r>Remove</button></div></div>`;
+ d.querySelector('[data-v]').onclick=()=>{closeAll();openP(id)};d.querySelector('[data-r]').onclick=()=>wish(id);w.appendChild(d)})}
+$('#bWish').onclick=()=>{rW();drawer('#dWish')};
+/* product */
+function openP(id){const p=by(id);S.cur=p;S.cs=null;go('product');$('#cCat').textContent=p.c;$('#cName').textContent=p.n;$('#pn').textContent=p.n;$('#pp').textContent=$m(p.p);$('#pd').textContent='Heavyweight fabric, boxy fit. Sizes run true; size down one for a regular fit. Save your size once and it is pre-selected at every drop.';
+ $('#ps').textContent=p.sold?'Sold out':(p.left<=20?`Low stock: ${p.left} left`:'In stock');$('#serr').textContent='';$('#zip').value='';$('#eta').textContent='Estimated delivery 3 Oct · Tracking by email and SMS';
+ $('#sizes').innerHTML=['XS','S','M','L','XL','XXL'].map(s=>`<button class="size" data-s="${s}" ${p.s.includes(s)&&!p.sold?'':'disabled'}>${s}</button>`).join('');
+ $$('#sizes .size').forEach(b=>b.onclick=()=>{S.cs=b.dataset.s;$$('#sizes .size').forEach(x=>x.classList.toggle('on',x===b));$('#serr').textContent=''});
+ $('#add').style.display=$('#buy').style.display=p.sold?'none':'';$('#wait').style.display=p.sold?'':'none';
+ $('#mn').textContent=p.c==='Accessories'?'One size fits most.':'Model is 6\'0" and wears M for an oversized fit.';
+ $$('.acc').forEach(a=>a.classList.remove('open'));$$('#thumbs .ph').forEach((t,i)=>t.classList.toggle('on',i===0));$('#mainL').textContent='Main product photo';relG()}
+$('#thumbs').onclick=e=>{const t=e.target.closest('.ph');if(!t)return;const i=[...$('#thumbs').children].indexOf(t);$$('#thumbs .ph').forEach(x=>x.classList.toggle('on',x===t));$('#mainL').textContent=['Main product photo','Back view','Detail view'][i]};
+function relG(){const g=$('#relg');g.innerHTML='';P.filter(p=>p.id!==S.cur.id).slice(0,4).forEach(p=>g.appendChild(card(p)))}
+$$('.acc>button').forEach(b=>b.onclick=()=>b.parentElement.classList.toggle('open'));
+$('#zipBtn').onclick=()=>{const v=$('#zip').value.trim();if(!/^\d{5,6}$/.test(v)){$('#eta').textContent='Enter a valid 5-digit ZIP or 6-digit pincode.';return}$('#eta').textContent='Checking…';setTimeout(()=>$('#eta').textContent=`Delivering to ${v}: estimated 3 Oct · Free shipping`,500)};
+function need(){if(!S.cs){$('#serr').setAttribute('data-e','!');$('#serr').textContent='Select a size to continue.';$$('#sizes .size:not([disabled])').forEach(b=>{b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake')});return false}return true}
+function add(id,s){const x=S.cart.find(i=>i.id===id&&i.s===s);x?x.q++:S.cart.push({id,s,q:1});cc()}
+$('#add').onclick=()=>{if(!need())return;add(S.cur.id,S.cs);rD();drawer('#dCart')};
+$('#buy').onclick=()=>{if(!need())return;add(S.cur.id,S.cs);['Aarav Mehta','9876543210','14 Baner Road','411045','Pune','Maharashtra'].forEach((v,i)=>$('#f'+(i+1)).value=v);go('checkout');toast('Saved details applied')};
+$('#wait').onclick=()=>waitlist(S.cur);
+$('#sg').onclick=()=>sizeG(S.cs);
+$('#rev').onclick=()=>modal('<h3>312 verified reviews</h3><p class="sub">4.7 / 5 · 91% say it fits as expected</p><p>“Boxy, heavy, true to size.” — A.K.</p><button class="btn solid" data-x>Close</button>');
+/* cart */
+function tot(){const sub=S.cart.reduce((a,i)=>a+by(i.id).p*i.q,0);const dc=S.promo?Math.round(sub*.1):0;const tax=Math.round((sub-dc)*.081);const sh=(sub-dc)>=150||!sub?0:12;return{sub,dc,tax,sh,t:sub-dc+tax+sh}}
+function cc(){const n=S.cart.reduce((a,i)=>a+i.q,0);$('#cc').textContent=n;$('#dc').textContent=n;$('#kc').textContent=n;rD();if($('#v-checkout').classList.contains('active'))rCk()}
+function row(i,ix){const p=by(i.id);const d=document.createElement('div');d.className='ci';d.innerHTML=`<div class="ph"><span></span></div><div><b>${p.n}</b><div style="margin:4px 0">Size ${i.s}<span class="qty"><button data-m>−</button><span>${i.q}</span><button data-a>+</button></span></div><div class="lnk"><button data-r>Remove</button><button data-w>Move to wishlist</button></div></div><b>${$m(p.p*i.q)}</b>`;
+ d.querySelector('[data-m]').onclick=()=>{i.q>1?i.q--:S.cart.splice(ix,1);cc()};d.querySelector('[data-a]').onclick=()=>{i.q++;cc()};d.querySelector('[data-r]').onclick=()=>{S.cart.splice(ix,1);cc();toast('Removed')};
+ d.querySelector('[data-w]').onclick=()=>{S.cart.splice(ix,1);S.wish.add(i.id);$('#wc').textContent=` (${S.wish.size})`;cc();rW();rGrid();toast('Moved to wishlist')};return d}
+function rD(){const c=$('#dItems');c.innerHTML='';if(!S.cart.length)c.innerHTML='<p style="color:var(--mid)">Your bag is empty.</p>';S.cart.forEach((i,ix)=>c.appendChild(row(i,ix)));$('#dsub').textContent=$m(tot().sub);$('#dgo').disabled=!S.cart.length}
+$('#bCart').onclick=()=>{rD();drawer('#dCart')};$('#dgo').onclick=()=>go('checkout');
+/* checkout */
+function rCk(){const c=$('#ckItems');c.innerHTML='';if(!S.cart.length)c.innerHTML='<p style="color:var(--mid)">Your bag is empty. <button style="text-decoration:underline" data-go="home">Back to shop</button></p>';S.cart.forEach((i,ix)=>c.appendChild(row(i,ix)));
+ const t=tot();$('#ts').textContent=$m(t.sub);$('#tdr').style.display=t.dc?'flex':'none';$('#td').textContent='-'+$m(t.dc);$('#tsh').textContent=t.sh?$m(t.sh):'Free';$('#tt').textContent=$m(t.tax);$('#tot').textContent=$m(t.t);$('#place').textContent=`PLACE ORDER · ${$m(t.t)}`;$('#place').disabled=!S.cart.length}
+$('#promoBtn').onclick=()=>{const v=$('#promo').value.trim().toUpperCase();if(v==='SUPREME10'){S.promo=true;$('#pm').textContent='Code applied: 10% off.'}else{S.promo=false;$('#pm').textContent=v?`"${v}" isn't valid. Check for typos.`:'Enter a code first.'}rCk()};
+$$('.po').forEach(b=>b.onclick=()=>{S.pay=b.dataset.p;$$('.po').forEach(x=>x.classList.toggle('on',x===b));$('#cardBox').style.display=S.pay==='card'?'block':'none'});
+const R={f1:v=>v.trim().split(/\s+/).filter(Boolean).length>=2,f2:v=>/^\d{10}$/.test(v.replace(/\D/g,'')),f3:v=>v.trim().length>=5,f4:v=>/^\d{5,6}$/.test(v),f5:v=>v.trim().length>=2,f6:v=>v.trim().length>=2};
+Object.keys(R).forEach(k=>$('#'+k).addEventListener('input',()=>$('#'+k).classList.remove('bad')));
+let tm=[];
+$('#place').onclick=()=>{let bad=[];Object.keys(R).forEach(k=>{const ok=R[k]($('#'+k).value);$('#'+k).classList.toggle('bad',!ok);if(!ok)bad.push(k)});
+ $('#fe').textContent=bad.length?'Fix the hatched fields: name needs two words, phone 10 digits, ZIP 5–6 digits.':'';if(bad.length){$('#'+bad[0]).focus();return}
+ $('#place').textContent='PLACING ORDER…';$('#place').disabled=true;setTimeout(()=>{$('#cf').textContent=`Order #SUP-${Math.floor(10000+Math.random()*89999)} is in. Details sent by SMS and email.`;S.cart=[];S.promo=false;cc();go('confirm');run()},900)};
+function run(){tm.forEach(clearTimeout);tm=[];const st=$$('#live .step');st.forEach((s,i)=>s.className='step'+(i===0?' now':''));[3000,6500,10000].forEach((ms,i)=>tm.push(setTimeout(()=>{st[i].className='step done';st[i+1].className='step now'},ms)))}
+$('#replay').onclick=run;
+/* overlays */
+function modal(h,cb){const m=$('#modal');m.innerHTML='<button class="x" data-x>✕</button>'+h;m.classList.add('show');$('#scrim').classList.add('show');cb&&cb()}
+function drawer(s){closeAll();$(s).classList.add('show');$('#scrim').classList.add('show')}
+function closeAll(){$$('.drawer').forEach(d=>d.classList.remove('show'));$('#modal').classList.remove('show');$('#scrim').classList.remove('show')}
+$('#scrim').onclick=closeAll;document.addEventListener('click',e=>{if(e.target.closest('[data-x]'))closeAll()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+function waitlist(p){modal(`<h3>Join the waitlist</h3><p class="sub">${p.n} is sold out. We'll notify you when it's back.</p><input class="field" id="we" placeholder="Email address"><div class="fmsg" id="wm"></div><button class="btn solid block" id="wg">Notify me when it's back</button>`,()=>{$('#wg').onclick=()=>{const ok=/^\S+@\S+\.\S+$/.test($('#we').value);$('#we').classList.toggle('bad',!ok);$('#wm').textContent=ok?'':'Enter a valid email address.';if(ok){closeAll();toast('You are on the waitlist')}}})}
+function sizeG(sel){const rows=[['XS','86–91'],['S','91–96'],['M','96–101'],['L','101–106'],['XL','106–111'],['XXL','111–116']];
+ modal(`<h3>Size guide</h3><p class="sub">Chest in cm. Size down one for a regular fit.</p><table><tr><th>Size</th><th>Chest</th></tr>${rows.map(r=>`<tr data-z="${r[0]}" class="${r[0]===sel?'hl':''}"><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table><input class="field" id="ch" inputmode="numeric" placeholder="Your chest in cm"><div class="fmsg" id="co">Enter your chest measurement for a suggestion.</div><button class="btn solid block" data-x>Close</button>`,()=>{
+ $('#ch').oninput=()=>{const v=+$('#ch').value;if(!(v>=80&&v<=120)){$('#co').textContent='Enter a number between 80 and 120.';return}const i=rows.findIndex(r=>{const[a,b]=r[1].split('–').map(Number);return v>=a&&v<=b+.99});const z=rows[i<0?5:i][0];$$('[data-z]').forEach(t=>t.classList.toggle('hl',t.dataset.z===z));$('#co').textContent='Suggested size: '+z}})}
+$('#navSize').onclick=()=>sizeG();$('#fSize').onclick=()=>sizeG();
+$('#navAbout').onclick=()=>modal('<h3>About this wireframe</h3><p class="sub">Low-fidelity structure and flow for the Supreme redesign. Turn on “Show UX notes” to see which usability problem each area addresses.</p><button class="btn solid" data-x>Got it</button>');
+$('#bSearch').onclick=()=>modal(`<h3>Search</h3><input class="field" id="si" placeholder="Search pieces" autofocus><div id="sr" style="display:grid;gap:8px"></div>`,()=>{const f=q=>{q=q.trim().toLowerCase();const L=q?P.filter(p=>(p.n+' '+p.c).toLowerCase().includes(q)):P.slice(0,4);$('#sr').innerHTML=L.length?'':'<p style="color:var(--mid)">No results. Try “hoodie” or “tee”.</p>';L.forEach(p=>{const b=document.createElement('button');b.style.cssText='text-align:left;padding:10px;border:1.5px solid var(--mid)';b.innerHTML=`<b>${p.n}</b> · ${$m(p.p)}`;b.onclick=()=>{closeAll();openP(p.id)};$('#sr').appendChild(b)})};f('');$('#si').oninput=e=>f(e.target.value);$('#si').focus()});
+$$('[data-t]').forEach(b=>b.onclick=()=>{const k=b.dataset.t;k==='restock'?waitlist(by('coach')):k==='fit'?sizeG():(S.cart.length||add('box','M'),go('checkout'))});
+const LK=[[['box',40,35],['pant',50,75]],[['satin',50,42],['cap',50,12]],[['coach',50,48],['tee',50,75]]];
+$('#looks').innerHTML=LK.map((l,i)=>`<div style="position:relative">${ph(`Look 0${i+1} · tap to shop pieces`)}${l.map(x=>`<button class="hot" style="left:${x[1]}%;top:${x[2]}%" data-l="${i}" aria-label="Shop piece">+</button>`).join('')}</div>`).join('');
+$('#looks').onclick=e=>{const b=e.target.closest('[data-l]')||e.target.closest('.ph');let i=b&&b.dataset.l;if(i==null){const w=e.target.closest('div[style]');i=[...$('#looks').children].indexOf(w)}if(i<0)return;const l=LK[i];
+ modal(`<h3>Look 0${+i+1} · Shop the look</h3><p class="sub">${l.length} pieces</p>${l.map(x=>{const p=by(x[0]);return `<div class="ci" style="grid-template-columns:60px 1fr auto"><div class="ph" style="height:70px"><span></span></div><div><b>${p.n}</b><br>${$m(p.p)}${p.sold?' · Sold out':''}</div><button class="btn" data-o="${p.id}">${p.sold?'Waitlist':'View'}</button></div>`}).join('')}`,()=>$$('#modal [data-o]').forEach(x=>x.onclick=()=>{const p=by(x.dataset.o);closeAll();p.sold?waitlist(p):openP(p.id)}))};
+$$('[data-h]').forEach(b=>b.onclick=()=>{const k=b.dataset.h;if(k==='track')modal(`<h3>Track your order</h3><input class="field" id="tk" placeholder="Order number, e.g. SUP-48213"><div class="fmsg" id="tm"></div><button class="btn solid block" id="tg">Track order</button>`,()=>$('#tg').onclick=()=>{if(/^SUP-\d{5}$/i.test($('#tk').value.trim())){closeAll();go('confirm');run()}else{$('#tk').classList.add('bad');$('#tm').textContent='Enter an order number like SUP-48213.'}});else modal(k==='chat'?'<h3>Live chat support</h3><p class="sub">Typical reply under 2 minutes.</p><input class="field" placeholder="Type your question"><button class="btn solid block" data-x>Start chat</button>':'<h3>Exchanges &amp; returns</h3><p class="sub">Free exchanges within 14 days on unworn pieces.</p><button class="btn solid" data-x>Got it</button>')});
+$('#nl').onsubmit=e=>{e.preventDefault();const ok=/^\S+@\S+\.\S+$/.test($('#nle').value.trim());$('#nlm').textContent=ok?"You're on the list.":'Enter a valid email, like name@example.com.';if(ok){$('#nle').value='';toast('Subscribed to drop alerts')}};
+rF();rGrid();cc();rW();
+</script>
+</body>
+</html>
