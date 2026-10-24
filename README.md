@@ -1,7 +1,11 @@
 # Supreme Redesign – CCA3 Usability Validation
 
-**Name:** <your name>
-**Roll number:** <your roll number>
+**Name: Paraansh Nisar** <your name>
+
+**PRN: 1272250941** <your roll number>
+
+**Roll number:38** <your roll number>
+
 **Figma prototype (high fidelity):** https://www.figma.com/make/2CJKO6mRxaPEXkziVFWGs0/Supreme-Demo?p=f&t=YGLafEyEQMadS4Uf-0
 
 ## Study summary
