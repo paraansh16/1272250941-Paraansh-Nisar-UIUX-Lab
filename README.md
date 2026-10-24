@@ -11,7 +11,7 @@
 ## Study summary
 - Participants: 5 (Aanvi, Aditya, Archita, Nisarg, Siddhi), none familiar with the site's domain
 - Task tested on both versions: <e.g. "Find a hoodie in your size and complete checkout">
-- Method: Think Aloud (audio recorded) + UX survey (https://forms.gle/5jm4o9pejXpaw6EN9)
+- Method: Think Aloud (audio recorded) + UX survey
 
 ## Final conclusion (summary)
 All 5 participants preferred the prototype, citing the lookbook with models, a single consistent language (the original mixes English and Japanese), easier discovery and search, simple checkout and the drop countdown. Limitations: recordings are reviews rather than live task sessions, three transcripts are near-identical, and no problems were raised about the prototype. Survey ratings were not available at submission, so this conclusion is qualitative only. See conclusion_report.md.
